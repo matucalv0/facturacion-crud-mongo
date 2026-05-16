@@ -14,7 +14,7 @@ public class Factura {
     public Factura() {
     }
 
-    public Factura(int numero,Cliente cliente, List<Detalle> detalles) {
+    public Factura(int numero, Cliente cliente, List<Detalle> detalles) {
         this.numero=numero;
         this.cliente = cliente;
         this.detalles = detalles;

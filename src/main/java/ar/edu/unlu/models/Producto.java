@@ -12,7 +12,27 @@ public class Producto {
     public Producto() {
     }
 
-    public Producto(Integer idp,String nombre, Double precio, Integer stock) {
+    public Integer getIdp() {
+        return idp;
+    }
+
+    public void setIdp(Integer idp) {
+        this.idp = idp;
+    }
+
+    public void setPrecio(Double precio) {
+        this.precio = precio;
+    }
+
+    public Integer getStock() {
+        return stock;
+    }
+
+    public void setStock(Integer stock) {
+        this.stock = stock;
+    }
+
+    public Producto(Integer idp, String nombre, Double precio, Integer stock) {
         this.idp=idp;
         this.nombre = nombre;
         this.precio = precio;

@@ -59,7 +59,7 @@ public class FacturaView {
                             System.out.print("Ingrese stock producto: ");
                             Integer stock = Integer.parseInt(scanner.nextLine());
 
-                            Producto producto = new Producto(idp, nombreProducto, precio, stock
+                            Producto producto = new Producto(idp, nombreProducto, precio, stock   //Agregar metodo auxiliar en FacturaService para crear el detalle?
                             );
                             System.out.print("Ingrese cantidad: ");
                             Integer cantidad = Integer.parseInt(scanner.nextLine());

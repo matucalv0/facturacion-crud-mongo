@@ -40,7 +40,7 @@ public class QuickStart {
             System.out.println("Colección 'clientes' obtenida con éxito. Documentos en la colección: " + clientesCollection.countDocuments());
             System.out.println("Verificando indices en " + clientesCollection.getNamespace() + " ...");
             clientesCollection.createIndex(Indexes.ascending("dni"), new IndexOptions().unique(true));
-            ClienteService clienteService = new ClienteService(clientesCollection);
+            ClienteService clienteService = new ClienteService(clientesCollection); // inyecto la coleccion en el servicio
 
             //productos
             MongoCollection<Producto> productosCollection =
@@ -55,7 +55,7 @@ public class QuickStart {
             MongoCollection<Factura> facturasCollection = database.getCollection("facturas", Factura.class);
             System.out.println("Colección 'facturas' obtenida con éxito. Documentos en la colección: " + facturasCollection.countDocuments());
             facturasCollection.createIndex(Indexes.ascending("numero"), new IndexOptions().unique(true));
-            FacturaService facturaService = new FacturaService(facturasCollection);
+            FacturaService facturaService = new FacturaService(facturasCollection, productosCollection, clientesCollection);
 
             MongoApp app = new MongoApp(clienteService, productoService, facturaService);
             app.run();
