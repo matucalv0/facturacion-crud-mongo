@@ -5,13 +5,13 @@ import org.bson.types.ObjectId;
 public class Detalle {
     private ObjectId id;
     private Producto producto;
-    private int cantidad;
+    private Integer cantidad;
     private double subtotal;
 
     public Detalle() {
     }
 
-    public Detalle(Producto producto, int cantidad) {
+    public Detalle(Producto producto, Integer cantidad) {
         this.producto = producto;
         this.cantidad = cantidad;
         this.subtotal = this.cantidad * this.producto.getPrecio();

@@ -6,6 +6,7 @@ import java.util.List;
 
 public class Factura {
     private ObjectId id;
+    private int numero;
     private Cliente cliente;
     private List<Detalle> detalles;
     private double total;
@@ -13,7 +14,8 @@ public class Factura {
     public Factura() {
     }
 
-    public Factura(Cliente cliente, List<Detalle> detalles) {
+    public Factura(int numero,Cliente cliente, List<Detalle> detalles) {
+        this.numero=numero;
         this.cliente = cliente;
         this.detalles = detalles;
         this.total = detalles.stream().mapToDouble(Detalle::getSubtotal).sum();

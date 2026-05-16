@@ -1,8 +1,13 @@
 package ar.edu.unlu;
 
 import ar.edu.unlu.models.Cliente;
+import ar.edu.unlu.models.Factura;
+import ar.edu.unlu.models.Producto;
 import ar.edu.unlu.services.ClienteService;
+import ar.edu.unlu.services.FacturaService;
+import ar.edu.unlu.services.ProductoService;
 import ar.edu.unlu.view.MongoApp;
+import ar.edu.unlu.view.ProductoView;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
@@ -26,26 +31,36 @@ public class QuickStart {
         CodecRegistry pojoCodecRegistry = fromRegistries(getDefaultCodecRegistry(), fromProviders(pojoCodecProvider));
 
 
-
-
-
-
         try (MongoClient mongoClient = MongoClients.create(uri)) {
             MongoDatabase database = mongoClient.getDatabase("facturacion-db").withCodecRegistry(pojoCodecRegistry);
             System.out.println("Conexión exitosa a MongoDB! Base de datos: " + database.getName());
             System.out.println("-------------------------------------------------------------------------------");
+            //clientes
             MongoCollection<Cliente> clientesCollection = database.getCollection("clientes", Cliente.class);
             System.out.println("Colección 'clientes' obtenida con éxito. Documentos en la colección: " + clientesCollection.countDocuments());
             System.out.println("Verificando indices en " + clientesCollection.getNamespace() + " ...");
             clientesCollection.createIndex(Indexes.ascending("dni"), new IndexOptions().unique(true));
-
             ClienteService clienteService = new ClienteService(clientesCollection);
 
-            MongoApp app = new MongoApp(clienteService);
+            //productos
+            MongoCollection<Producto> productosCollection =
+                    database.getCollection("productos", Producto.class);
+            System.out.println(
+                    "Colección 'productos' obtenida con éxito. Documentos en la colección: "
+                            + productosCollection.countDocuments());
+            productosCollection.createIndex(Indexes.ascending("idp"), new IndexOptions().unique(true));
+            ProductoService productoService = new ProductoService(productosCollection);
+
+           //facturas
+            MongoCollection<Factura> facturasCollection = database.getCollection("facturas", Factura.class);
+            System.out.println("Colección 'facturas' obtenida con éxito. Documentos en la colección: " + facturasCollection.countDocuments());
+            facturasCollection.createIndex(Indexes.ascending("numero"), new IndexOptions().unique(true));
+            FacturaService facturaService = new FacturaService(facturasCollection);
+
+            MongoApp app = new MongoApp(clienteService, productoService, facturaService);
             app.run();
 
-
-            } catch ( Exception e) {
+        } catch ( Exception e) {
                 System.err.println("Ocurrió un error conectando a MongoDB: " + e.getMessage());
         }
 

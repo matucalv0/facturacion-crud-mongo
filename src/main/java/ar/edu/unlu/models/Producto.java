@@ -4,15 +4,19 @@ import org.bson.types.ObjectId;
 
 public class Producto {
     private ObjectId id;
+    private Integer idp;
     private String nombre;
-    private double precio;
+    private Double precio;
+    private Integer stock;
 
     public Producto() {
     }
 
-    public Producto(String nombre, double precio) {
+    public Producto(Integer idp,String nombre, Double precio, Integer stock) {
+        this.idp=idp;
         this.nombre = nombre;
         this.precio = precio;
+        this.stock=stock;
     }
 
     public ObjectId getId() {
